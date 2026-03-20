@@ -1,5 +1,4 @@
-# SAMYA
-# 🔍 Samya
+# SAMYA 🔍
 
 ### *साम्य — Seeing similarity beyond formats*
 
