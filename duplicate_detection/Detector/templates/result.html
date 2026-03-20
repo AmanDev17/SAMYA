@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Samya</title>
+    <style> 
+        body { 
+        font-family: Arial, sans-serif;
+         background: linear-gradient(135deg, #d4f1f9, #a6e3e9); 
+        margin: 0; 
+        padding: 0; 
+    } 
+    h2 { 
+        text-align: center; 
+        color: #007c91; 
+        margin-top: 30px;
+     } 
+     .container { 
+        width: 80%; 
+        margin: 30px auto;
+     } 
+     .pair {
+         background: white; 
+         border-radius: 12px;
+          padding: 20px;
+           margin-bottom: 25px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); 
+        } 
+    .pair h3 { 
+            text-align: center;
+             color: #006064; 
+             margin-bottom: 15px; 
+            }
+     .items { 
+        display: flex; 
+        justify-content: space-around;
+         gap: 30px; 
+         flex-wrap: wrap; 
+        } 
+    .item {
+            text-align: center;
+            background: #f9feff; 
+            padding: 10px;
+            border-radius: 10px; 
+            border: 2px solid #b2ebf2;
+            width: 220px;
+         } 
+         
+    .item p { 
+        font-weight: bold; 
+        color: #007c91; 
+    } 
+    
+    img {
+     border-radius: 8px;
+     margin-top: 10px;
+     max-width: 100%;
+     } 
+     
+     .distance { text-align: center; margin-top: 15px; font-size: 16px; color: #004d40; } 
+     .no-result { text-align: center; font-size: 18px; color: #004d40; margin-top: 40px; }
+    
+    </style>
+</head>
+<body>
+
+<h2>Duplicate Detection Result</h2>
+
+{% if groups %}
+    {% for pair in groups %}
+        <div style="border:2px solid black; padding:15px; margin-bottom:20px;">
+
+            <h3>Duplicate Pair</h3>
+
+            <div style="display:flex; gap:40px;">
+
+                <!-- ITEM 1 -->
+                <div style="text-align:center;">
+                    <p>{{ pair.item1.label }}</p>
+
+                    {% if pair.item1.type == "pdf" %}
+                        <img src="/preview/?type=pdf&pdf={{ pair.item1.pdf }}&page={{ pair.item1.page }}" width="200">
+
+                    {% elif pair.item1.type == "image" %}
+                        <img src="/preview/?type=image&file={{ pair.item1.file }}" width="200">
+
+                    {% else %}
+                        <p>(Text)</p>
+                    {% endif %}
+                </div>
+
+                <!-- ITEM 2 -->
+                <div style="text-align:center;">
+                    <p>{{ pair.item2.label }}</p>
+
+                    {% if pair.item2.type == "pdf" %}
+                        <img src="/preview/?type=pdf&pdf={{ pair.item2.pdf }}&page={{ pair.item2.page }}" width="200">
+
+                    {% elif pair.item2.type == "image" %}
+                        <img src="/preview/?type=image&file={{ pair.item2.file }}" width="200">
+
+                    {% else %}
+                        <p>(Text)</p>
+                    {% endif %}
+                </div>
+
+            </div>
+
+            <p><b>Similarity Distance:</b> {{ pair.distance }}</p>
+
+        </div>
+    {% endfor %}
+{% else %}
+    <p>No duplicates found.</p>
+{% endif %}
+
+</body>
+</html>

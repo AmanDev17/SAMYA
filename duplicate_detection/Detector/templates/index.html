@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Samya</title>
+<style>
+        h2 {
+        text-align: center;
+        color: #007c91;
+        margin-top: 30px;
+    }
+
+    form {
+        background: white;
+        width: 50%;
+        margin: 20px auto;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    input[type="file"] {
+        margin: 15px 0;
+    }
+
+    button {
+        background-color: #00bcd4;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background-color: #0097a7;
+    }
+
+    h3 {
+        text-align: center;
+        color: #006064;
+    }
+
+    .group-container {
+        width: 60%;
+        margin: 20px auto;
+    }
+
+    .group {
+        background: white;
+        border-left: 6px solid #00acc1;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    .group b {
+        color: #007c91;
+    }
+
+    .group p {
+        margin: 5px 0;
+        color: #333;
+    }
+
+    .tagline {
+         text-align: center;
+         color: #004d40; 
+         font-size: 16px; 
+         margin-top: 10px;
+        margin-bottom: 20px; 
+        font-style: italic;
+     }
+
+    body {
+        background: #e0f7fa;
+         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #d4f1f9, #a6e3e9);}
+</style>
+</head>
+<body>
+    <div class="tagline"><b>Welcome to Samya </b> <br>
+         Cross-format duplicate detection system using perceptual hashing and FAISS </div>
+    <h2>Upload Any Files (PDF, Images, TXT)</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="files" multiple color="#007c91" accept=".pdf, .jpg, .jpeg, .png, .txt" required>  
+        <button type="submit">Scan Files</button>    
+    </form>
+
+    {% if groups %}
+        <h3>Duplicate Groups:</h3>
+
+        {% for group in groups %}
+            <div style="margin-bottom:20px; border:1px solid black; padding:10px;">
+                <b>Group:</b><br>
+                {% for item in group %}
+                    <p>{{ item }}</p>
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+    {% endif %}
+</body>
+</html>
